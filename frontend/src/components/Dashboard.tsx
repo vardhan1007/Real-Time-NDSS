@@ -59,7 +59,8 @@ export default function Dashboard() {
   const [testLoading, setTestLoading] = useState(false);
   const [testError, setTestError] = useState('');
 
-  const { lastJsonMessage } = useWebSocket('ws://localhost:8000/ws', {
+  const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws';
+  const { lastJsonMessage } = useWebSocket(WS_URL, {
     shouldReconnect: () => true,
     reconnectInterval: 3000,
   });
@@ -434,7 +435,8 @@ function ManualTestPanel({ testPacketSize, setTestPacketSize, testPacketCount, s
     if (ps < 0 || pc < 0 || ent < 0) { setTestError('Values must be positive.'); setTestResult(null); return; }
     setTestError(''); setTestLoading(true); setTestResult(null);
     try {
-      const resp = await fetch('http://localhost:8000/api/test', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ packet_size: ps, packet_count: pc, entropy: ent }) });
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const resp = await fetch(`${API_URL}/api/test`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ packet_size: ps, packet_count: pc, entropy: ent }) });
       if (!resp.ok) throw new Error('Server error');
       const data = await resp.json();
       setTestLoading(false);
