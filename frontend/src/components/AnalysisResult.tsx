@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ShieldCheck, ShieldAlert, AlertTriangle, ArrowLeft, BarChart2, Hash, Activity, Lock, Zap, Eye, Cpu, Info } from 'lucide-react';
 
@@ -112,7 +112,6 @@ export default function AnalysisResult() {
   const { verdict, total_votes, votes, thresholds, action, input } = result;
   const isMalicious = verdict === 'Malicious';
   const isSuspicious = verdict === 'Suspicious';
-  const isSafe = verdict === 'Safe';
   const verdictColor = isMalicious ? STATUS.malicious : isSuspicious ? STATUS.suspicious : STATUS.safe;
   const insights = VERDICT_INSIGHTS[verdict as keyof typeof VERDICT_INSIGHTS] || VERDICT_INSIGHTS.Safe;
 

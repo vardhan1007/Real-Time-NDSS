@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useWebSocketHook from 'react-use-websocket';
 const useWebSocket = (typeof useWebSocketHook === 'function' ? useWebSocketHook : (useWebSocketHook as any).useWebSocket || (useWebSocketHook as any).default) as any;
@@ -427,7 +427,7 @@ function EventLogCard({ log }: { log: any }) {
   );
 }
 
-function ManualTestPanel({ testPacketSize, setTestPacketSize, testPacketCount, setTestPacketCount, testEntropy, setTestEntropy, testResult, setTestResult, testLoading, setTestLoading, testError, setTestError }: any) {
+function ManualTestPanel({ testPacketSize, setTestPacketSize, testPacketCount, setTestPacketCount, testEntropy, setTestEntropy, testResult: _testResult, setTestResult, testLoading, setTestLoading, testError, setTestError }: any) {
   const navigate = useNavigate();
   const handleAnalyze = async () => {
     const ps = parseFloat(testPacketSize), pc = parseFloat(testPacketCount), ent = parseFloat(testEntropy);
